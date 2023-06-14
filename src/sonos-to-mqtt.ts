@@ -118,7 +118,7 @@ export class SonosToMqtt {
   private setupSonosEvents(): void {
     this.sonosManager.Devices.forEach(async (d) => {
       const deviceDescription = await d.GetDeviceDescription();
-      this.states.push({uuid: d.Uuid, model: deviceDescription.modelName, name: d.Name, groupName: d.GroupName, coordinatorUuid: d.Coordinator.Uuid})
+      this.states.push({uuid: d.Host, model: deviceDescription.modelName, name: d.Name, groupName: d.GroupName, coordinatorUuid: d.Coordinator.Uuid})
       d.Events.on(SonosEvents.AVTransport, (data) => {
         this.updateStateWithAv(d.Uuid, data);
         this.mqtt.publish(`status/${d.Host}/avtransport`,data)
