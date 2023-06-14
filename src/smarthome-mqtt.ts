@@ -4,6 +4,7 @@ import TypedEmitter from 'typed-emitter';
 import {EventEmitter} from 'events'
 import { DeviceControl } from './device-control'
 import {StaticLogger} from './static-logger'
+import net from "net";
 
 interface MqttEvents {
   connected: (connected: boolean) => void;
