@@ -121,42 +121,42 @@ export class SonosToMqtt {
       this.states.push({uuid: d.Uuid, model: deviceDescription.modelName, name: d.Name, groupName: d.GroupName, coordinatorUuid: d.Coordinator.Uuid})
       d.Events.on(SonosEvents.AVTransport, (data) => {
         this.updateStateWithAv(d.Uuid, data);
-        this.mqtt.publish(`status/${this.topicId(d.Name, d.Uuid)}/avtransport`,data)
+        this.mqtt.publish(`status/${d.Host}/avtransport`,data)
       })
       d.Events.on(SonosEvents.RenderingControl, (data) => {
         this.updateStateWithRenderingControl(d.Uuid, data);
-        this.mqtt.publish(`status/${this.topicId(d.Name, d.Uuid)}/renderingcontrol`,data)
+        this.mqtt.publish(`status/${d.Host}/renderingcontrol`,data)
       })
       d.Events.on(SonosEvents.GroupName, (groupName) => {
         this.updateState(d.Uuid, { groupName });
         if(this.config.distinct === true) {
-          this.mqtt.publish(`status/${this.topicId(d.Name, d.Uuid)}/group`, groupName)
+          this.mqtt.publish(`status/${d.Host}/group`, groupName)
         }
       })
       d.Events.on(SonosEvents.Coordinator, (coordinatorUuid) => {
         this.updateState(d.Uuid, { coordinatorUuid });
         if(this.config.distinct === true) {
-          this.mqtt.publish(`status/${this.topicId(d.Name, d.Uuid)}/coordinator`, coordinatorUuid)
+          this.mqtt.publish(`status/${d.Host}/coordinator`, coordinatorUuid)
         }
       })
       d.Events.on('transportState', (transportState) => {
         this.updateState(d.Uuid, { transportState } );
         if (this.config.distinct === true) {
-          this.mqtt.publish(`status/${this.topicId(d.Name, d.Uuid)}/state`, transportState)
+          this.mqtt.publish(`status/${d.Host}/state`, transportState)
         }
       })
       if(this.config.distinct === true) {
         d.Events.on(SonosEvents.CurrentTrackMetadata, (track) => {
-          this.mqtt.publish(`status/${this.topicId(d.Name, d.Uuid)}/track`, track)
+          this.mqtt.publish(`status/${d.Host}/track`, track)
         })
         d.Events.on(SonosEvents.CurrentTrackUri, (trackUri) => {
-          this.mqtt.publish(`status/${this.topicId(d.Name, d.Uuid)}/trackUri`, trackUri)
+          this.mqtt.publish(`status/${d.Host}/trackUri`, trackUri)
         })
         d.Events.on(SonosEvents.Mute, (mute) => {
-          this.mqtt.publish(`status/${this.topicId(d.Name, d.Uuid)}/muted`, mute)
+          this.mqtt.publish(`status/${d.Host}/muted`, mute)
         })
         d.Events.on(SonosEvents.Volume, (volume) => {
-          this.mqtt.publish(`status/${this.topicId(d.Name, d.Uuid)}/volume`, volume)
+          this.mqtt.publish(`status/${d.Host}/volume`, volume)
         })
 
       }
