@@ -21,16 +21,12 @@ export class SmarthomeMqtt{
   }
 
   connect(): void {
-    this.mqttClient = mqtt.connect(this.uri.toString(), {
-      will: {
-        topic: `${this.prefix}/connected`,
-        payload: '0',
-        qos: 0,
-        retain: true
-      },
-      keepalive: 60000,
-      clientId: this.clientId
-    });
+    
+    this.mqttClient = new mqtt.MqttClient(() => {
+        return net.createConnection("/var/run/ampio/mqtt.sock");
+    }, {});
+
+    
     this.mqttClient.on('connect',() => {
       this.log.debug('Connected to server {server}', this.uri.host)
       this.Events.emit('connected', true)
