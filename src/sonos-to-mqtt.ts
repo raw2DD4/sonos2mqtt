@@ -6,7 +6,7 @@ import { SonosCommandMapping } from './sonos-command-mapping';
 import { SonosState } from './sonos-state';
 import { AVTransportServiceEvent, RenderingControlServiceEvent } from '@svrooij/sonos/lib/services';
 import { SonosCommands } from './sonos-commands';
-export class SonosToMqtt {homeassistant
+export class SonosToMqtt {
   private readonly sonosManager: SonosManager;
   private readonly mqtt: SmarthomeMqtt;
   private readonly log = StaticLogger.CreateLoggerForSource('Sonos2mqtt.main')
