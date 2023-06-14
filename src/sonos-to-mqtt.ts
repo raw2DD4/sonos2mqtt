@@ -87,7 +87,7 @@ export class SonosToMqtt {
     })
 
     this.mqtt.Events.on('deviceControl', async (uuid, payload)=> {
-      const correctDevice = this.sonosManager.Devices.find(d => d.Uuid.toLocaleLowerCase() === uuid || SonosToMqtt.CleanName(d.Name) === uuid);
+      const correctDevice = this.sonosManager.Devices.find(d => d.Uuid.toLocaleLowerCase() === uuid || d.Host.toLowerCase() === uuid || SonosToMqtt.CleanName(d.Name) === uuid);
       if(correctDevice === undefined) {
         this.log.warn('Device {uuid} not found', uuid)
         return;
