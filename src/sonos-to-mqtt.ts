@@ -120,27 +120,27 @@ export class SonosToMqtt {
       const deviceDescription = await d.GetDeviceDescription();
       this.states.push({uuid: d.Host, model: deviceDescription.modelName, name: d.Name, groupName: d.GroupName, coordinatorUuid: d.Coordinator.Uuid})
       d.Events.on(SonosEvents.AVTransport, (data) => {
-        this.updateStateWithAv(d.Uuid, data);
+        this.updateStateWithAv(d.Host, data);
         this.mqtt.publish(`status/${d.Host}/avtransport`,data)
       })
       d.Events.on(SonosEvents.RenderingControl, (data) => {
-        this.updateStateWithRenderingControl(d.Uuid, data);
+        this.updateStateWithRenderingControl(d.Host, data);
         this.mqtt.publish(`status/${d.Host}/renderingcontrol`,data)
       })
       d.Events.on(SonosEvents.GroupName, (groupName) => {
-        this.updateState(d.Uuid, { groupName });
+        this.updateState(d.Host, { groupName });
         if(this.config.distinct === true) {
           this.mqtt.publish(`status/${d.Host}/group`, groupName)
         }
       })
       d.Events.on(SonosEvents.Coordinator, (coordinatorUuid) => {
-        this.updateState(d.Uuid, { coordinatorUuid });
+        this.updateState(d.Host, { coordinatorUuid });
         if(this.config.distinct === true) {
           this.mqtt.publish(`status/${d.Host}/coordinator`, coordinatorUuid)
         }
       })
       d.Events.on('transportState', (transportState) => {
-        this.updateState(d.Uuid, { transportState } );
+        this.updateState(d.Host, { transportState } );
         if (this.config.distinct === true) {
           this.mqtt.publish(`status/${d.Host}/state`, transportState)
         }
