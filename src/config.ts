@@ -23,7 +23,7 @@ const defaultConfig: Config = {
   prefix: 'sonos',
   distinct: false,
   discovery: true,
-  discoveryprefix: 'homeassistant',
+  discoveryprefix: 'sonos_discovery',
   log: 'information',
   friendlynames: 'name'
 }
