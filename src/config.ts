@@ -84,7 +84,7 @@ export class ConfigLoader {
         d: false,
         'ttslang': 'en-US',
         'ttsendpoint': undefined,
-        discoveryprefix: 'homeassistant',
+        discoveryprefix: 'sonos_discovery',
         log: 'information'
       })
       .choices('log', ['warning', 'information', 'debug'])
